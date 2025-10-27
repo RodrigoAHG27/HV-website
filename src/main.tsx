@@ -1,30 +1,21 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ConfigProvider, theme } from 'antd';
-import { RouterProvider } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
-import router from './routes/router.tsx';
+import App from './App';
 import './styles/global.css';
+import { ThemeProvider } from './theme/ThemeProvider';
+import './api/mockServer';
 
-const rootElement = document.getElementById('root');
+const container = document.getElementById('root')!;
+const root = createRoot(container);
 
-if (!rootElement) {
-  throw new Error('Root element not found');
-}
-
-createRoot(rootElement).render(
+root.render(
   <StrictMode>
-    <ConfigProvider
-      theme={{
-        algorithm: theme.defaultAlgorithm,
-        token: {
-          colorPrimary: '#1677ff',
-          colorLink: '#1677ff',
-          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
-        }
-      }}
-    >
-      <RouterProvider router={router} />
-    </ConfigProvider>
-  </StrictMode>
+    <HelmetProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HelmetProvider>
+  </StrictMode>,
 );
