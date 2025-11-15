@@ -20,15 +20,15 @@ import { contractor } from '../lib/jsonld';
 const MofuPage = () => (
   <>
     <Helmet>
-      <title>HV Construction — Reliable Residential & Commercial Contractors | San Salvador</title>
+      <title>HV</title>
       <meta
         name="description"
-        content="HV Construction entrega proyectos residenciales, comerciales e industriales con supervisión local en San Salvador y municipios vecinos."
+        content="HV entrega proyectos residenciales, comerciales e industriales con supervisión local en El Salvador."
       />
       <meta property="og:title" content="HV Construction — Reliable Residential & Commercial Contractors | San Salvador" />
       <meta
         property="og:description"
-        content="Soluciones de construcción para viviendas, oficinas y plantas ligeras en el Gran San Salvador con seguridad certificada."
+        content="Soluciones de construcción para viviendas, oficinas y plantas ligeras en El Salvador con supervisión local."
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://hvconstruction.sv" />
@@ -40,13 +40,9 @@ const MofuPage = () => (
       <TopNotice />
       <HeroMofu />
       <IconCardGrid />
-      <Differentiators />
       <ProcessSteps />
-      <CaseStudyFeature />
-      <Gallery />
-      <Credentials />
-      <ServiceAreas />
-      <Faq />
+      {/* <CaseStudyFeature /> */}
+      {/* <Faq /> */}
       <LeadFormStepper />
       <CtaBand />
       <FooterCompact />

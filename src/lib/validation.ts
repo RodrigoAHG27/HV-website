@@ -16,20 +16,12 @@ export const leadStep1Schema = z.object({
 
 export const leadStep2Schema = z.object({
   service: z.enum(
-    ['remodel', 'new_build', 'structural', 'roofing', 'electrical', 'plumbing', 'finishes', 'other'],
+    ['remodel', 'new_build', 'roofing', 'electrical', 'plumbing', 'finishes', 'other'],
     {
       required_error: 'Seleccione un servicio',
     },
   ),
-  locationCity: z.string().min(2, 'Ingrese la ciudad').max(80, 'Ciudad demasiado larga'),
-  budgetRange: z.enum(['<$10k', '$10k–$50k', '$50k–$200k', '$200k+'], {
-    required_error: 'Seleccione un rango de presupuesto',
-  }),
-  startWindow: z.enum(['ASAP', '1–3 months', '3–6 months', '6+ months'], {
-    required_error: 'Seleccione el plazo de inicio',
-  }),
   description: z.string().max(800, 'Máximo 800 caracteres').optional().default(''),
-  fileUrls: z.array(z.string()).optional().default([]),
   optIn: z.boolean().default(false),
 });
 
