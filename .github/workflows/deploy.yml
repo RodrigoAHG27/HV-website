@@ -43,25 +43,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: SSH deploy
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            set -e
-            sudo mkdir -p /srv/hv-website
-            sudo chown $USER:$USER /srv/hv-website
-            cd /srv/hv-website
-            cat > docker-compose.yml <<'YAML'
-            services:
-              hv-website:
-                image: ghcr.io/rodrigoahg27/hv-website:latest
-                container_name: hv-website
-                restart: always
-                ports:
-                  - "80:80"
-            YAML
-            docker compose pull
-            docker compose up -d
+    - name: SSH deploy
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          cd /srv/hv-stack
+          docker compose pull frontend
+          docker compose up -d frontend
