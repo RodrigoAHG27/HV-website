@@ -10,20 +10,23 @@ const { Header, Content } = Layout;
 const App = () => (
   <BrowserRouter>
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      {/*<Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography.Title level={4} style={{ color: 'inherit', margin: 0 }}>
           HV Construction
         </Typography.Title>
         <ThemeToggle />
-      </Header>
+      </Header>*/}
       <Content style={{ padding: '48px 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <Routes>
+          {/*<Routes>
             <Route path="/" element={<MofuPage />} />
             <Route path="/case-studies" element={<CaseStudies />} />
-          </Routes>
+          </Routes>*/}
+          <h1>Estamos construyendo este sitio :)</h1>
         </div>
       </Content>
+
+      
     </Layout>
   </BrowserRouter>
 );
