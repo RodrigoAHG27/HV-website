@@ -30,7 +30,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       <ConfigProvider
         theme={{
           algorithm: controller.isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          token: { borderRadius: 8 },
+          token: {
+            borderRadius: 10,
+            colorPrimary: '#1f6bff',
+            colorBgBase: controller.isDark ? '#0b1220' : '#f6f8fb',
+            colorBgContainer: controller.isDark ? '#0f172a' : '#ffffff',
+            colorTextBase: controller.isDark ? '#e8efff' : '#0f172a',
+            fontFamily: "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+          },
         }}
       >
         {children}

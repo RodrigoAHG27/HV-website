@@ -1,19 +1,43 @@
-:root {
-  --ink: #0f172a;
-  --muted: #475467;
-  --primary: #1f6bff;
-  --primary-strong: #0f4ed5;
-  --surface: #ffffff;
-  --card-shadow: 0 20px 70px rgba(15, 23, 42, 0.08);
-  --radius: 18px;
-  --grid-line: rgba(255, 255, 255, 0.08);
-}
-
 .mofu-page {
-  background: #f6f8fb;
+  background: var(--hv-bg);
   color: var(--ink);
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   min-height: 100vh;
+}
+
+.mofu-layout {
+  min-height: 100vh;
+  background: var(--hv-bg);
+}
+
+.mofu-header {
+  background: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 0;
+}
+
+.mofu-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-mark {
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.theme-toggle {
+  background: var(--surface-alt) !important;
+  border: 1px solid var(--border-soft) !important;
+}
+
+.theme-toggle .ant-switch-handle::before {
+  background: var(--surface) !important;
 }
 
 .container {
@@ -62,9 +86,9 @@
 }
 
 .hero--light {
-  background: radial-gradient(circle at 20% 20%, rgba(31, 107, 255, 0.12), transparent 32%),
-    radial-gradient(circle at 80% 10%, rgba(31, 107, 255, 0.09), transparent 30%),
-    linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+  background: radial-gradient(circle at 20% 20%, var(--hero-spot-a), transparent 32%),
+    radial-gradient(circle at 80% 10%, var(--hero-spot-b), transparent 30%),
+    linear-gradient(180deg, var(--hero-base-from) 0%, var(--hero-base-to) 100%);
 }
 
 .hero__backdrop {
@@ -91,8 +115,8 @@
   gap: 8px;
   padding: 10px 16px;
   border-radius: 999px;
-  background: #e7eeff;
-  color: #0f4ed5;
+  background: rgba(31, 107, 255, 0.12);
+  color: var(--primary-strong);
   font-weight: 700;
   font-size: 14px;
 }
@@ -105,7 +129,7 @@
 
 .hero__title--dark,
 .hero__lead--dark {
-  color: #0b1224 !important;
+  color: var(--ink) !important;
 }
 
 .hero__lead {
@@ -146,9 +170,9 @@
 }
 
 .ghost-button {
-  border: 1px solid #d0d7e6 !important;
-  color: #0b1224 !important;
-  background: #ffffff !important;
+  border: 1px solid var(--border-soft) !important;
+  color: var(--ink) !important;
+  background: var(--surface) !important;
   padding: 0 18px;
   height: 44px;
   border-radius: 10px;
@@ -170,23 +194,23 @@
   gap: 14px;
   align-items: start;
   padding: 18px 18px 16px;
-  background: #ffffff;
+  background: var(--surface);
   border-radius: 14px;
-  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
-  border: 1px solid #e4e9f2;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-soft);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.12);
 }
 
 .feature-card__icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ecf3ff, #dbe8ff);
+  background: linear-gradient(135deg, rgba(236, 243, 255, 0.8), rgba(219, 232, 255, 0.8));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -201,6 +225,19 @@
   color: var(--ink);
 }
 
+.feature-card .ant-typography {
+  margin: 0;
+}
+
+.feature-card .ant-typography.ant-typography-secondary,
+.feature-card .ant-typography:not(.ant-typography-4) {
+  color: var(--muted);
+}
+
+.feature-card .ant-typography-4 {
+  color: var(--ink);
+}
+
 .feature-card__body p {
   margin: 0;
   color: var(--muted);
@@ -208,9 +245,9 @@
 }
 
 .form-section {
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 35%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.08), transparent 30%),
-    linear-gradient(180deg, #0f1b34 0%, #0c1426 100%);
+  background: radial-gradient(circle at 30% 20%, var(--form-grid-spot), transparent 35%),
+    radial-gradient(circle at 80% 10%, var(--form-grid-spot), transparent 30%),
+    var(--form-grid-base);
   position: relative;
 }
 
@@ -228,9 +265,12 @@
   position: relative;
   background: var(--surface);
   border-radius: 16px;
-  padding: 40px;
   box-shadow: var(--card-shadow);
-  border: 1px solid #e4e9f2;
+  border: 1px solid var(--border-soft);
+}
+
+.lead-form .ant-card-body {
+  padding: 40px;
 }
 
 .lead-form__header {
@@ -269,8 +309,9 @@
 .lead-form .ant-select-selector,
 .lead-form .ant-input-textarea-affix-wrapper {
   border-radius: 10px !important;
-  border-color: #d0d7e6;
+  border-color: var(--border-soft);
   padding: 10px 12px;
+  background: var(--input-bg);
 }
 
 .lead-form .ant-input:focus,
@@ -302,7 +343,7 @@
 
 .lead-form__privacy {
   margin: 16px 0 0;
-  color: #cbd2e5;
+  color: var(--muted);
   font-size: 13px;
   text-align: center;
 }

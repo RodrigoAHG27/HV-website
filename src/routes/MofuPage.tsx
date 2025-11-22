@@ -1,7 +1,9 @@
+import { Card, Col, Layout, Row, Typography } from 'antd';
 import { Helmet } from 'react-helmet-async';
 
 import HeroMofu from '../components/HeroMofu';
 import LeadFormStepper from '../components/LeadFormStepper';
+import ThemeToggle from '../components/ThemeToggle';
 import '../styles/mofu.css';
 
 const highlights = [
@@ -32,7 +34,7 @@ const highlights = [
 ];
 
 const MofuPage = () => (
-  <>
+  <Layout className="mofu-layout">
     <Helmet>
       <title>HV</title>
       <meta name="description" content="Transform your business with expert solutions tailored to your goals." />
@@ -46,38 +48,51 @@ const MofuPage = () => (
       <meta property="og:image" content="/og-default.png" />
       <meta name="twitter:card" content="summary_large_image" />
     </Helmet>
-    <main className="mofu-page">
-      <HeroMofu />
+    <Layout.Header className="mofu-header">
+      <div className="container mofu-header__inner">
+        <Typography.Text className="brand-mark" strong>
+          HV
+        </Typography.Text>
+        <ThemeToggle />
+      </div>
+    </Layout.Header>
 
-      <section className="section section--centered">
-        <div className="container section-header section-header--centered">
-          <p className="eyebrow">Why Choose Us</p>
-          <h2>Everything you need to take your business to the next level</h2>
-        </div>
-        <div className="container">
-          <div className="feature-grid">
-            {highlights.map((item) => (
-              <div key={item.title} className="feature-card">
-                <div className="feature-card__icon" aria-hidden>
-                  <span>★</span>
-                </div>
-                <div className="feature-card__body">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-              </div>
-            ))}
+    <Layout.Content>
+      <main className="mofu-page">
+        <HeroMofu />
+
+        <section className="section section--centered">
+          <div className="container section-header section-header--centered">
+            <p className="eyebrow">Why Choose Us</p>
+            <Typography.Title level={2}>Everything you need to take your business to the next level</Typography.Title>
           </div>
-        </div>
-      </section>
+          <div className="container">
+            <Row gutter={[18, 18]}>
+              {highlights.map((item) => (
+                <Col key={item.title} xs={24} sm={12} lg={8}>
+                  <Card className="feature-card" bordered>
+                    <div className="feature-card__icon" aria-hidden>
+                      <span>★</span>
+                    </div>
+                    <div className="feature-card__body">
+                      <Typography.Title level={4}>{item.title}</Typography.Title>
+                      <Typography.Paragraph>{item.description}</Typography.Paragraph>
+                    </div>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        </section>
 
-      <section className="section form-section">
-        <div className="container">
-          <LeadFormStepper />
-        </div>
-      </section>
-    </main>
-  </>
+        <section className="section form-section">
+          <div className="container">
+            <LeadFormStepper />
+          </div>
+        </section>
+      </main>
+    </Layout.Content>
+  </Layout>
 );
 
 export default MofuPage;

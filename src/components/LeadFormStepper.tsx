@@ -1,12 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  message,
-  Result,
-  Select,
-  Typography,
-} from 'antd';
+import { Button, Card, Form, Input, message, Result, Select, Typography } from 'antd';
 import type { FormEvent } from 'react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -113,7 +105,7 @@ const LeadFormStepper = () => {
   };
 
   return (
-    <div id="lead-form" className="lead-form">
+    <Card id="lead-form" className="lead-form" bordered>
       {contextHolder}
       <div className="lead-form__header">
         <p className="eyebrow">Ready to Get Started?</p>
@@ -230,7 +222,7 @@ const LeadFormStepper = () => {
       <p className="lead-form__privacy">
         We respect your privacy. Your information will never be shared with third parties.
       </p>
-    </div>
+    </Card>
   );
 };
 
