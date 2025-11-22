@@ -1,9 +1,12 @@
-import { Alert } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { content } from '../content/hv';
 
 const TopNotice = () => (
-  <Alert banner message={content.topNotice} type="info" showIcon />
+  <div className="top-notice">
+    <InfoCircleOutlined />
+    <span>{content.topNotice}</span>
+  </div>
 );
 
 export default TopNotice;

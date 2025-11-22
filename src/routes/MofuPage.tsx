@@ -1,4 +1,3 @@
-import { Space } from 'antd';
 import { Helmet } from 'react-helmet-async';
 
 import CaseStudyFeature from '../components/CaseStudyFeature';
@@ -11,11 +10,11 @@ import HeroMofu from '../components/HeroMofu';
 import IconCardGrid from '../components/IconCardGrid';
 import LeadFormStepper from '../components/LeadFormStepper';
 import ProcessSteps from '../components/ProcessSteps';
-import ServiceAreas from '../components/ServiceAreas';
 import TopNotice from '../components/TopNotice';
 import FooterCompact from '../components/FooterCompact';
 import { content } from '../content/hv';
 import { contractor } from '../lib/jsonld';
+import '../styles/mofu.css';
 
 const MofuPage = () => (
   <>
@@ -36,17 +35,117 @@ const MofuPage = () => (
       <meta name="twitter:card" content="summary_large_image" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: contractor(content) }} />
     </Helmet>
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+    <main className="mofu-page">
       <TopNotice />
       <HeroMofu />
-      <IconCardGrid />
-      <ProcessSteps />
-      {/* <CaseStudyFeature /> */}
-      {/* <Faq /> */}
-      <LeadFormStepper />
+
+      <section className="section">
+        <div className="container section-header">
+          <p className="eyebrow">Especialidades y servicios</p>
+          <h2>Construimos para residencias, comercios e industria ligera</h2>
+          <p>Coordinamos permisos, seguridad y presupuesto con equipos locales y supervisión diaria.</p>
+          <div className="tag-row">
+            {content.services.map((service) => (
+              <span key={service} className="tag">
+                {service}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="container">
+          <IconCardGrid />
+        </div>
+      </section>
+
+      <section className="section section--muted">
+        <div className="container section-header">
+          <p className="eyebrow">Por qué HV</p>
+          <h2>Diferenciadores que cuidan tu presupuesto y seguridad</h2>
+        </div>
+        <div className="container">
+          <Differentiators />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-header">
+          <p className="eyebrow">Metodología</p>
+          <h2>Un proceso claro, con hitos verificables</h2>
+        </div>
+        <div className="container">
+          <ProcessSteps />
+        </div>
+      </section>
+
+      <section className="section section--muted">
+        <div className="container section-header">
+          <p className="eyebrow">Certificaciones</p>
+          <h2>Credenciales y coberturas activas</h2>
+        </div>
+        <div className="container">
+          <Credentials />
+        </div>
+      </section>
+
+      <section className="section case-study-section">
+        <div className="container">
+          <CaseStudyFeature />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-header">
+          <p className="eyebrow">Galería</p>
+          <h2>Antes y después de proyectos recientes</h2>
+        </div>
+        <div className="container">
+          <Gallery />
+        </div>
+      </section>
+
+      <section className="section lead-section">
+        <div className="container lead-grid">
+          <div className="lead-grid__form">
+            <LeadFormStepper />
+          </div>
+          <div className="lead-grid__aside">
+            <p className="eyebrow">Contacto directo</p>
+            <h3>Coordinemos una visita técnica</h3>
+            <p>
+              Nuestro residente de obra puede reunirse en San Salvador, Santa Tecla o Antiguo Cuscatlán para revisar planos y
+              restricciones.
+            </p>
+            <ul className="contact-list">
+              <li>
+                <span className="contact-label">Teléfono</span>
+                <a href={`tel:${content.contact.phone.replace(/[^+\d]/g, '')}`}>{content.contact.phone}</a>
+              </li>
+              <li>
+                <span className="contact-label">Correo</span>
+                <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+              </li>
+              <li>
+                <span className="contact-label">Áreas</span>
+                <p>{content.serviceAreas.join(' • ')}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--muted">
+        <div className="container section-header">
+          <p className="eyebrow">FAQ</p>
+          <h2>Resolvemos dudas rápidas</h2>
+        </div>
+        <div className="container">
+          <Faq />
+        </div>
+      </section>
+
       <CtaBand />
       <FooterCompact />
-    </Space>
+    </main>
   </>
 );
 

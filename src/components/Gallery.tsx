@@ -21,16 +21,17 @@ const Gallery = () => {
 
   return (
     <>
-      <Row gutter={[24, 24]}>
+      <Row gutter={[16, 16]} className="gallery-grid">
         {content.gallery.map((item) => (
           <Col xs={24} md={8} key={item.thumb}>
             <Card
               hoverable
+              className="gallery-card"
               cover={
                 <button
                   type="button"
                   onClick={() => openImage({ full: item.full, alt: item.alt })}
-                  style={{ border: 'none', padding: 0, background: 'none', cursor: 'pointer' }}
+                  className="gallery-card__button"
                   aria-label={`Abrir galería: ${item.alt}`}
                 >
                   <img src={item.thumb} alt={item.alt} loading="lazy" />

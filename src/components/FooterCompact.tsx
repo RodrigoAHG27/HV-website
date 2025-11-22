@@ -1,16 +1,16 @@
-import { Layout, Space, Typography } from 'antd';
-
 import { content } from '../content/hv';
 
 const FooterCompact = () => (
-  <Layout.Footer style={{ textAlign: 'center' }}>
-    <Space direction="vertical">
-      <Typography.Text strong>{content.companyName}</Typography.Text>
-      <Typography.Text type="secondary">
-        © {new Date().getFullYear()} {content.companyName}. Operamos en San Salvador y municipios aledaños.
-      </Typography.Text>
-    </Space>
-  </Layout.Footer>
+  <footer className="footer">
+    <div className="container footer__inner">
+      <div>
+        <p className="eyebrow">{content.companyName}</p>
+        <strong>{content.companyName}</strong>
+        <p>Operamos en San Salvador y municipios aledaños.</p>
+      </div>
+      <p className="footer__meta">© {new Date().getFullYear()} {content.companyName}</p>
+    </div>
+  </footer>
 );
 
 export default FooterCompact;
