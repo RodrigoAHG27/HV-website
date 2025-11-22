@@ -15,14 +15,11 @@ import type { FormEvent } from 'react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '../api/http';
 
+import { api } from '../api/http';
 import { content } from '../content/hv';
 import { track } from '../lib/analytics';
-import {
-  leadFormSchema,
-  type LeadFormValues,
-} from '../lib/validation';
+import { leadFormSchema, type LeadFormValues } from '../lib/validation';
 
 const LeadFormStepper = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -59,33 +56,33 @@ const LeadFormStepper = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-  if (data.company && data.company.trim().length > 0) {
-    messageApi.error('No pudimos enviar tu solicitud.');
-    track('mofu_form_submit_error', { reason: 'honeypot' });
-    return;
-  }
-  setLoading(true);
-  try {
-    const response = await api.post('/api/leads', {
-      ...data,
-      source: 'mofu-page',
-    });
-
-    if (response.status < 200 || response.status >= 300) {
-      throw new Error(`status ${response.status}`);
+    if (data.company && data.company.trim().length > 0) {
+      messageApi.error('No pudimos enviar tu solicitud.');
+      track('mofu_form_submit_error', { reason: 'honeypot' });
+      return;
     }
+    setLoading(true);
+    try {
+      const response = await api.post('/api/leads', {
+        ...data,
+        source: 'mofu-page',
+      });
 
-    messageApi.success('Gracias, revisaremos tu solicitud.');
-    track('mofu_form_submit_success', { projectType: data.projectType });
-    setSubmitted(true);
-    reset();
-  } catch (error) {
-    messageApi.error('No pudimos enviar tu solicitud.');
-    track('mofu_form_submit_error', { message: (error as Error).message });
-  } finally {
-    setLoading(false);
-  }
-});
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error(`status ${response.status}`);
+      }
+
+      messageApi.success('Gracias, revisaremos tu solicitud.');
+      track('mofu_form_submit_success', { projectType: data.projectType });
+      setSubmitted(true);
+      reset();
+    } catch (error) {
+      messageApi.error('No pudimos enviar tu solicitud.');
+      track('mofu_form_submit_error', { message: (error as Error).message });
+    } finally {
+      setLoading(false);
+    }
+  });
 
   if (submitted) {
     return (
@@ -110,11 +107,17 @@ const LeadFormStepper = () => {
   };
 
   return (
-    <div id="lead-form">
+    <div id="lead-form" className="lead-form">
       {contextHolder}
       <Space direction="vertical" style={{ width: '100%' }} size="large">
-        <Typography.Title level={2}>Comparte los detalles de tu proyecto</Typography.Title>
-        <Form layout="vertical" onSubmitCapture={handleFormSubmit}>
+        <div className="section-header">
+          <p className="eyebrow">Compártenos los detalles</p>
+          <Typography.Title level={2}>Planifiquemos tu próximo proyecto</Typography.Title>
+          <Typography.Paragraph>
+            Define el alcance y coordinamos una visita técnica en menos de 48 horas dentro del Gran San Salvador.
+          </Typography.Paragraph>
+        </div>
+        <Form layout="vertical" onSubmitCapture={handleFormSubmit} className="lead-form__card">
           <input type="text" hidden {...register('company')} />
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
@@ -234,7 +237,10 @@ const LeadFormStepper = () => {
             <Col span={24}>
               <Space>
                 <Button type="primary" htmlType="submit" loading={loading} disabled={!isValid}>
-                  Enviar
+                  Enviar solicitud
+                </Button>
+                <Button type="link" onClick={handleFirstFocus} href={`tel:${content.contact.phone.replace(/[^+\d]/g, '')}`}>
+                  Llamar ahora
                 </Button>
               </Space>
             </Col>

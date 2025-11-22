@@ -1,5 +1,4 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Space, Statistic, Typography } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,43 +32,39 @@ const CaseStudyFeature = () => {
   }, [tracked]);
 
   return (
-    <div ref={ref}>
-      <Row gutter={[32, 32]} align="middle">
-        <Col xs={24} md={12}>
-          <Card bordered={false}>
-            <Space direction="vertical" size="large">
-              <div>
-                <Typography.Title level={2}>{content.caseStudy.title}</Typography.Title>
-                <Typography.Paragraph strong>Reto</Typography.Paragraph>
-                <Typography.Paragraph>{content.caseStudy.problem}</Typography.Paragraph>
-                <Typography.Paragraph strong>Solución</Typography.Paragraph>
-                <Typography.Paragraph>{content.caseStudy.solution}</Typography.Paragraph>
+    <div ref={ref} className="case-study">
+      <div className="case-study__content">
+        <p className="eyebrow">Caso destacado</p>
+        <h3>{content.caseStudy.title}</h3>
+        <div className="case-study__grid">
+          <div>
+            <p className="case-study__label">Reto</p>
+            <p>{content.caseStudy.problem}</p>
+            <p className="case-study__label">Solución</p>
+            <p>{content.caseStudy.solution}</p>
+            <button
+              type="button"
+              className="link-button"
+              onClick={() => navigate(content.caseStudy.href)}
+              aria-label="Ver más casos"
+            >
+              Ver más <ArrowRightOutlined />
+            </button>
+          </div>
+          <div className="case-study__stats">
+            {content.caseStudy.results.map((result) => (
+              <div key={result.label} className="stat-card">
+                <span className="stat-card__value">{result.value}</span>
+                <span className="stat-card__label">{result.label}</span>
               </div>
-              <Row gutter={[16, 16]}> 
-                {content.caseStudy.results.map((result) => (
-                  <Col xs={24} sm={8} key={result.label}>
-                    <Statistic title={result.label} value={result.value} />
-                  </Col>
-                ))}
-              </Row>
-              <div>
-                <Button
-                  type="link"
-                  icon={<ArrowRightOutlined />}
-                  onClick={() => navigate(content.caseStudy.href)}
-                >
-                  View more
-                </Button>
-              </div>
-            </Space>
-          </Card>
-        </Col>
-        <Col xs={24} md={12}>
-          <Card cover={<img src={content.caseStudy.image} alt={content.caseStudy.imageAlt} loading="lazy" />}>
-            <Typography.Paragraph>{content.caseStudy.imageAlt}</Typography.Paragraph>
-          </Card>
-        </Col>
-      </Row>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="case-study__visual">
+        <img src={content.caseStudy.image} alt={content.caseStudy.imageAlt} loading="lazy" />
+        <p className="case-study__caption">{content.caseStudy.imageAlt}</p>
+      </div>
     </div>
   );
 };

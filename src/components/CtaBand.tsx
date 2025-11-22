@@ -1,17 +1,20 @@
 import { PhoneOutlined, WhatsAppOutlined } from '@ant-design/icons';
-import { Button, Card, Space, Typography } from 'antd';
+import { Button } from 'antd';
 
 import { content } from '../content/hv';
 import { track } from '../lib/analytics';
 
 const CtaBand = () => (
-  <Card>
-    <Space direction="vertical" style={{ width: '100%' }} size="middle" align="center">
-      <Typography.Title level={3}>Listo para construir en El Salvador</Typography.Title>
-      <Typography.Text>
-        Coordinemos una reunión para revisar planos, permisos y presupuesto en San Salvador o municipios vecinos.
-      </Typography.Text>
-      <Space wrap>
+  <section className="cta-band">
+    <div className="container cta-band__inner">
+      <div>
+        <p className="eyebrow">Agenda una llamada</p>
+        <h3>Listo para construir en El Salvador</h3>
+        <p>
+          Coordinemos una reunión para revisar planos, permisos y presupuesto en San Salvador o municipios vecinos.
+        </p>
+      </div>
+      <div className="cta-band__actions">
         <Button
           type="primary"
           size="large"
@@ -31,9 +34,9 @@ const CtaBand = () => (
         >
           {content.cta.whatsappLabel}
         </Button>
-      </Space>
-    </Space>
-  </Card>
+      </div>
+    </div>
+  </section>
 );
 
 export default CtaBand;

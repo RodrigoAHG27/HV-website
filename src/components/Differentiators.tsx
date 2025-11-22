@@ -1,22 +1,21 @@
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Typography } from 'antd';
 
 import { content } from '../content/hv';
 
 const Differentiators = () => (
-  <Row gutter={[24, 24]}>
+  <div className="differentiators">
     {content.differentiators.map((item) => (
-      <Col xs={24} md={12} key={item.title}>
-        <Card>
-          <Typography.Title level={4}>
-            <CheckCircleOutlined style={{ marginRight: 12 }} />
-            {item.title}
-          </Typography.Title>
-          <Typography.Paragraph>{item.description}</Typography.Paragraph>
-        </Card>
-      </Col>
+      <div className="differentiator" key={item.title}>
+        <div className="differentiator__icon">
+          <CheckCircleOutlined />
+        </div>
+        <div>
+          <h4>{item.title}</h4>
+          <p>{item.description}</p>
+        </div>
+      </div>
     ))}
-  </Row>
+  </div>
 );
 
 export default Differentiators;
