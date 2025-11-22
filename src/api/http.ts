@@ -19,19 +19,16 @@ export const api = axios.create({
 // Optional: basic logging in dev
 if (import.meta.env.DEV) {
   api.interceptors.request.use((config) => {
-    // eslint-disable-next-line no-console
     console.log('[HTTP] →', config.method?.toUpperCase(), config.baseURL + config.url, config.data);
     return config;
   });
 
   api.interceptors.response.use(
     (response) => {
-      // eslint-disable-next-line no-console
       console.log('[HTTP] ←', response.status, response.config.url, response.data);
       return response;
     },
     (error) => {
-      // eslint-disable-next-line no-console
       console.error('[HTTP] ✖', error.response?.status, error.config?.url, error.response?.data);
       return Promise.reject(error);
     }

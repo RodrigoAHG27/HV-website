@@ -1,8 +1,13 @@
 import { Button, Typography } from 'antd';
 
 import { track } from '../lib/analytics';
+import dayHero from '../img/SSDAY.jpeg';
+import nightHero from '../img/SSNIGHT.mov';
+import { useTheme } from '../theme/ThemeProvider';
 
 const HeroMofu = () => {
+  const { isDark } = useTheme();
+
   const handlePrimaryCta = () => {
     track('mofu_hero_cta_click');
     const form = document.getElementById('lead-form');
@@ -10,7 +15,16 @@ const HeroMofu = () => {
   };
 
   return (
-    <section className="hero hero--light">
+    <section className={`hero ${isDark ? 'hero--dark' : 'hero--light'}`}>
+      <div className="hero__media" aria-hidden>
+        {isDark ? (
+          <video className="hero__video" autoPlay loop muted playsInline>
+            <source src={nightHero} type="video/quicktime" />
+          </video>
+        ) : (
+          <img src={dayHero} alt="" className="hero__image" loading="lazy" />
+        )}
+      </div>
       <div className="hero__backdrop" />
       <div className="container hero__content hero__content--center">
         <span className="hero__trust-pill">Trusted by 500+ Companies</span>
