@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import './styles/global.css';
 import { ThemeProvider } from './theme/ThemeProvider';
+import { I18nProvider } from './i18n/I18nProvider';
 import './api/mockServer';
 
 const container = document.getElementById('root')!;
@@ -13,9 +14,11 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <HelmetProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <I18nProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </I18nProvider>
     </HelmetProvider>
   </StrictMode>,
 );
