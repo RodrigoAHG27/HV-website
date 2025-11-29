@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 
 import { api } from '../api/http';
 import { track } from '../lib/analytics';
@@ -13,6 +14,7 @@ const LeadFormStepper = () => {
   const [loading, setLoading] = useState(false);
   const startedRef = useRef(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const { t } = useTranslation();
 
   const {
     control,
@@ -45,7 +47,7 @@ const LeadFormStepper = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.company && data.company.trim().length > 0) {
-      messageApi.error('No pudimos enviar tu solicitud.');
+      messageApi.error(t('form.messages.honeypot'));
       track('mofu_form_submit_error', { reason: 'honeypot' });
       return;
     }
@@ -71,12 +73,12 @@ const LeadFormStepper = () => {
         throw new Error(`status ${response.status}`);
       }
 
-      messageApi.success('Gracias, revisaremos tu solicitud.');
+      messageApi.success(t('form.messages.submitSuccess'));
       track('mofu_form_submit_success', { projectType: data.projectType });
       setSubmitted(true);
       reset();
     } catch (error) {
-      messageApi.error('No pudimos enviar tu solicitud.');
+      messageApi.error(t('form.messages.submitError'));
       track('mofu_form_submit_error', { message: (error as Error).message });
     } finally {
       setLoading(false);
@@ -89,8 +91,8 @@ const LeadFormStepper = () => {
         {contextHolder}
         <Result
           status="success"
-          title="Tu solicitud fue enviada"
-          subTitle="Nuestro equipo responderá en menos de un día hábil."
+          title={t('form.messages.resultTitle')}
+          subTitle={t('form.messages.resultSubtitle')}
         />
       </>
     );
@@ -104,11 +106,9 @@ const LeadFormStepper = () => {
     <Card id="lead-form" className="lead-form" bordered>
       {contextHolder}
       <div className="lead-form__header">
-        <p className="eyebrow">Ready to Get Started?</p>
-        <Typography.Title level={2}>Share your details and we&apos;ll reach out</Typography.Title>
-        <Typography.Paragraph>
-          Complete the form and our team will contact you within 24 hours to discuss how we can help achieve your goals.
-        </Typography.Paragraph>
+        <p className="eyebrow">{t('form.eyebrow')}</p>
+        <Typography.Title level={2}>{t('form.title')}</Typography.Title>
+        <Typography.Paragraph>{t('form.description')}</Typography.Paragraph>
       </div>
       <Form layout="vertical" onSubmitCapture={handleFormSubmit} className="lead-form__card">
         <input type="text" hidden {...register('company')} />
@@ -118,8 +118,12 @@ const LeadFormStepper = () => {
             control={control}
             name="name"
             render={({ field }) => (
-              <Form.Item label="Full Name *" validateStatus={errors.name ? 'error' : ''} help={errors.name?.message}>
-                <Input {...field} onFocus={handleFirstFocus} placeholder="John Doe" />
+              <Form.Item
+                label={t('form.labels.fullName')}
+                validateStatus={errors.name ? 'error' : ''}
+                help={errors.name?.message}
+              >
+                <Input {...field} onFocus={handleFirstFocus} placeholder={t('form.placeholders.fullName')} />
               </Form.Item>
             )}
           />
@@ -127,8 +131,12 @@ const LeadFormStepper = () => {
             control={control}
             name="email"
             render={({ field }) => (
-              <Form.Item label="Email Address *" validateStatus={errors.email ? 'error' : ''} help={errors.email?.message}>
-                <Input {...field} type="email" onFocus={handleFirstFocus} placeholder="john@company.com" />
+              <Form.Item
+                label={t('form.labels.email')}
+                validateStatus={errors.email ? 'error' : ''}
+                help={errors.email?.message}
+              >
+                <Input {...field} type="email" onFocus={handleFirstFocus} placeholder={t('form.placeholders.email')} />
               </Form.Item>
             )}
           />
@@ -136,8 +144,12 @@ const LeadFormStepper = () => {
             control={control}
             name="phone"
             render={({ field }) => (
-              <Form.Item label="Phone Number" validateStatus={errors.phone ? 'error' : ''} help={errors.phone?.message}>
-                <Input {...field} onFocus={handleFirstFocus} placeholder="+1 (555) 000-0000" />
+              <Form.Item
+                label={t('form.labels.phone')}
+                validateStatus={errors.phone ? 'error' : ''}
+                help={errors.phone?.message}
+              >
+                <Input {...field} onFocus={handleFirstFocus} placeholder={t('form.placeholders.phone')} />
               </Form.Item>
             )}
           />
@@ -145,16 +157,20 @@ const LeadFormStepper = () => {
             control={control}
             name="projectType"
             render={({ field }) => (
-              <Form.Item label="Project Type *" validateStatus={errors.projectType ? 'error' : ''} help={errors.projectType?.message}>
+              <Form.Item
+                label={t('form.labels.projectType')}
+                validateStatus={errors.projectType ? 'error' : ''}
+                help={errors.projectType?.message}
+              >
                 <Select
                   {...field}
                   onFocus={handleFirstFocus}
                   options={[
-                    { value: 'residential', label: 'Residential' },
-                    { value: 'commercial', label: 'Commercial' },
-                    { value: 'industrial', label: 'Industrial' },
+                    { value: 'residential', label: t('form.projectTypes.residential') },
+                    { value: 'commercial', label: t('form.projectTypes.commercial') },
+                    { value: 'industrial', label: t('form.projectTypes.industrial') },
                   ]}
-                  placeholder="Select project type"
+                  placeholder={t('form.placeholders.projectType')}
                 />
               </Form.Item>
             )}
@@ -163,20 +179,24 @@ const LeadFormStepper = () => {
             control={control}
             name="service"
             render={({ field }) => (
-              <Form.Item label="Service *" validateStatus={errors.service ? 'error' : ''} help={errors.service?.message}>
+              <Form.Item
+                label={t('form.labels.service')}
+                validateStatus={errors.service ? 'error' : ''}
+                help={errors.service?.message}
+              >
                 <Select
                   {...field}
                   onFocus={handleFirstFocus}
                   options={[
-                    { value: 'remodel', label: 'Remodel' },
-                    { value: 'new_build', label: 'New Build' },
-                    { value: 'roofing', label: 'Roofing' },
-                    { value: 'electrical', label: 'Electrical' },
-                    { value: 'plumbing', label: 'Plumbing' },
-                    { value: 'finishes', label: 'Finishes' },
-                    { value: 'other', label: 'Other' },
+                    { value: 'remodel', label: t('form.services.remodel') },
+                    { value: 'new_build', label: t('form.services.new_build') },
+                    { value: 'roofing', label: t('form.services.roofing') },
+                    { value: 'electrical', label: t('form.services.electrical') },
+                    { value: 'plumbing', label: t('form.services.plumbing') },
+                    { value: 'finishes', label: t('form.services.finishes') },
+                    { value: 'other', label: t('form.services.other') },
                   ]}
-                  placeholder="Select a service"
+                  placeholder={t('form.placeholders.service')}
                 />
               </Form.Item>
             )}
@@ -186,11 +206,15 @@ const LeadFormStepper = () => {
           control={control}
           name="description"
           render={({ field }) => (
-            <Form.Item label="How can we help?" validateStatus={errors.description ? 'error' : ''} help={errors.description?.message}>
+            <Form.Item
+              label={t('form.labels.description')}
+              validateStatus={errors.description ? 'error' : ''}
+              help={errors.description?.message}
+            >
               <Input.TextArea
                 {...field}
                 onFocus={handleFirstFocus}
-                placeholder="Tell us about your project, goals, or any questions you have..."
+                placeholder={t('form.placeholders.description')}
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
             </Form.Item>
@@ -208,26 +232,24 @@ const LeadFormStepper = () => {
                 onFocus={handleFirstFocus}
                 ref={field.ref}
               >
-                I agree to receive communications from HV.
+                {t('form.optInLabel')}
               </Checkbox>
             </Form.Item>
           )}
         />
         <div className="lead-form__footer">
-          <div className="lead-form__requirements">* Required fields</div>
+          <div className="lead-form__requirements">{t('form.requirementsNote')}</div>
           <div className="lead-form__actions">
             <Button onClick={() => reset()} className="ghost-button">
-              Preview
+              {t('form.buttons.preview')}
             </Button>
             <Button type="primary" htmlType="submit" loading={loading} disabled={!isValid} className="solid-button">
-              Submit Request
+              {t('form.buttons.submit')}
             </Button>
           </div>
         </div>
       </Form>
-      <p className="lead-form__privacy">
-        We respect your privacy. Your information will never be shared with third parties.
-      </p>
+      <p className="lead-form__privacy">{t('form.privacy')}</p>
     </Card>
   );
 };

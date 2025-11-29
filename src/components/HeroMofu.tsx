@@ -1,4 +1,5 @@
 import { Button, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { track } from '../lib/analytics';
 import dayHero from '../img/SSDAY.jpeg';
