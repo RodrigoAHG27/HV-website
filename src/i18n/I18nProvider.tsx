@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import i18next from '../lib/i18n';
 import { Helmet } from 'react-helmet-async';
 
 type Translations = typeof translations;
@@ -11,7 +12,7 @@ type I18nContextValue = {
   t: (key: TranslationKey) => string;
 };
 
-const STORAGE_KEY = 'hv-lang';
+const STORAGE_KEY = 'hv_language';
 
 const translations = {
   en: {
@@ -86,16 +87,16 @@ const translations = {
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 const getInitialLanguage = (): Language => {
-  if (typeof window === 'undefined') return 'en';
+  if (typeof window === 'undefined') return (i18next.language as Language) ?? 'en';
 
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored && stored in translations) {
     return stored as Language;
   }
 
-  const browser = navigator.language?.slice(0, 2).toLowerCase();
-  if (browser && browser in translations) {
-    return browser as Language;
+  const detected = (i18next.language ?? navigator.language?.slice(0, 2)?.toLowerCase()) as Language | undefined;
+  if (detected && detected in translations) {
+    return detected;
   }
 
   return 'en';
@@ -108,6 +109,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
     if (typeof window !== 'undefined') {
       window.localStorage.setItem(STORAGE_KEY, language);
     }
+    void i18next.changeLanguage(language);
   }, [language]);
 
   const setLanguage = useCallback((next: Language) => {

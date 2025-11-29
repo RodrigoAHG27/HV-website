@@ -16,11 +16,13 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <HelmetProvider>
-      <I18nProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </I18nProvider>
+      <I18nextProvider i18n={i18n} defaultNS="common">
+        <I18nProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </I18nProvider>
+      </I18nextProvider>
     </HelmetProvider>
   </StrictMode>,
 );
