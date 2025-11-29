@@ -1,7 +1,5 @@
 import { Card, Col, Layout, Row, Typography } from 'antd';
 import { Helmet } from 'react-helmet-async';
-import { useTranslation } from 'react-i18next';
-
 import HeroMofu from '../components/HeroMofu';
 import LanguageToggle from '../components/LanguageToggle';
 import LeadFormStepper from '../components/LeadFormStepper';
