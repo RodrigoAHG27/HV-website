@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, message, Result, Select, Typography } from 'antd';
+import { Button, Card, Checkbox, Form, Input, message, Result, Select, Typography } from 'antd';
 import type { FormEvent } from 'react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -24,17 +24,15 @@ const LeadFormStepper = () => {
     resolver: zodResolver(leadFormSchema),
     mode: 'onBlur',
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      name: '',
       email: '',
       phone: '',
-      companyName: '',
-      companySize: '1-10',
       projectType: 'commercial',
       service: 'other',
-      message: '',
+      description: '',
       optIn: false,
       company: '',
+      source: 'mofu-page',
     },
   });
 
@@ -54,21 +52,19 @@ const LeadFormStepper = () => {
     setLoading(true);
     try {
       const payload = {
-        name: `${data.firstName} ${data.lastName}`.trim(),
+        name: data.name.trim(),
         email: data.email,
         phone: data.phone,
         projectType: data.projectType,
         service: data.service,
-        description: data.message,
+        description: data.description,
         optIn: data.optIn,
         company: data.company,
-        companyName: data.companyName,
-        companySize: data.companySize,
       };
 
       const response = await api.post('/api/leads', {
         ...payload,
-        source: 'mofu-page',
+        source: data.source,
       });
 
       if (response.status < 200 || response.status >= 300) {
@@ -116,24 +112,14 @@ const LeadFormStepper = () => {
       </div>
       <Form layout="vertical" onSubmitCapture={handleFormSubmit} className="lead-form__card">
         <input type="text" hidden {...register('company')} />
-        <input type="hidden" {...register('projectType')} />
-        <input type="hidden" {...register('service')} />
+        <input type="hidden" {...register('source')} />
         <div className="lead-form__grid">
           <Controller
             control={control}
-            name="firstName"
+            name="name"
             render={({ field }) => (
-              <Form.Item label="First Name *" validateStatus={errors.firstName ? 'error' : ''} help={errors.firstName?.message}>
-                <Input {...field} onFocus={handleFirstFocus} placeholder="John" />
-              </Form.Item>
-            )}
-          />
-          <Controller
-            control={control}
-            name="lastName"
-            render={({ field }) => (
-              <Form.Item label="Last Name *" validateStatus={errors.lastName ? 'error' : ''} help={errors.lastName?.message}>
-                <Input {...field} onFocus={handleFirstFocus} placeholder="Doe" />
+              <Form.Item label="Full Name *" validateStatus={errors.name ? 'error' : ''} help={errors.name?.message}>
+                <Input {...field} onFocus={handleFirstFocus} placeholder="John Doe" />
               </Form.Item>
             )}
           />
@@ -150,44 +136,47 @@ const LeadFormStepper = () => {
             control={control}
             name="phone"
             render={({ field }) => (
-              <Form.Item label="Phone Number *" validateStatus={errors.phone ? 'error' : ''} help={errors.phone?.message}>
+              <Form.Item label="Phone Number" validateStatus={errors.phone ? 'error' : ''} help={errors.phone?.message}>
                 <Input {...field} onFocus={handleFirstFocus} placeholder="+1 (555) 000-0000" />
               </Form.Item>
             )}
           />
           <Controller
             control={control}
-            name="companyName"
+            name="projectType"
             render={({ field }) => (
-              <Form.Item
-                label="Company Name *"
-                validateStatus={errors.companyName ? 'error' : ''}
-                help={errors.companyName?.message}
-              >
-                <Input {...field} onFocus={handleFirstFocus} placeholder="Your Company Inc." />
+              <Form.Item label="Project Type *" validateStatus={errors.projectType ? 'error' : ''} help={errors.projectType?.message}>
+                <Select
+                  {...field}
+                  onFocus={handleFirstFocus}
+                  options={[
+                    { value: 'residential', label: 'Residential' },
+                    { value: 'commercial', label: 'Commercial' },
+                    { value: 'industrial', label: 'Industrial' },
+                  ]}
+                  placeholder="Select project type"
+                />
               </Form.Item>
             )}
           />
           <Controller
             control={control}
-            name="companySize"
+            name="service"
             render={({ field }) => (
-              <Form.Item
-                label="Company Size *"
-                validateStatus={errors.companySize ? 'error' : ''}
-                help={errors.companySize?.message}
-              >
+              <Form.Item label="Service *" validateStatus={errors.service ? 'error' : ''} help={errors.service?.message}>
                 <Select
                   {...field}
                   onFocus={handleFirstFocus}
                   options={[
-                    { value: '1-10', label: '1-10' },
-                    { value: '11-50', label: '11-50' },
-                    { value: '51-200', label: '51-200' },
-                    { value: '201-500', label: '201-500' },
-                    { value: '500+', label: '500+' },
+                    { value: 'remodel', label: 'Remodel' },
+                    { value: 'new_build', label: 'New Build' },
+                    { value: 'roofing', label: 'Roofing' },
+                    { value: 'electrical', label: 'Electrical' },
+                    { value: 'plumbing', label: 'Plumbing' },
+                    { value: 'finishes', label: 'Finishes' },
+                    { value: 'other', label: 'Other' },
                   ]}
-                  placeholder="Select company size"
+                  placeholder="Select a service"
                 />
               </Form.Item>
             )}
@@ -195,15 +184,32 @@ const LeadFormStepper = () => {
         </div>
         <Controller
           control={control}
-          name="message"
+          name="description"
           render={({ field }) => (
-            <Form.Item label="How can we help?" validateStatus={errors.message ? 'error' : ''} help={errors.message?.message}>
+            <Form.Item label="How can we help?" validateStatus={errors.description ? 'error' : ''} help={errors.description?.message}>
               <Input.TextArea
                 {...field}
                 onFocus={handleFirstFocus}
                 placeholder="Tell us about your project, goals, or any questions you have..."
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
+            </Form.Item>
+          )}
+        />
+        <Controller
+          control={control}
+          name="optIn"
+          render={({ field }) => (
+            <Form.Item valuePropName="checked">
+              <Checkbox
+                checked={field.value}
+                onChange={(event) => field.onChange(event.target.checked)}
+                onBlur={field.onBlur}
+                onFocus={handleFirstFocus}
+                ref={field.ref}
+              >
+                I agree to receive communications from HV.
+              </Checkbox>
             </Form.Item>
           )}
         />
