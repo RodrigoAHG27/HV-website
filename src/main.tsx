@@ -7,6 +7,7 @@ import App from './App';
 import './styles/global.css';
 import i18n from './lib/i18n';
 import { ThemeProvider } from './theme/ThemeProvider';
+import { I18nProvider } from './i18n/I18nProvider';
 import './api/mockServer';
 
 const container = document.getElementById('root')!;
@@ -15,11 +16,11 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <HelmetProvider>
-      <ThemeProvider>
-        <I18nextProvider i18n={i18n}>
+      <I18nProvider>
+        <ThemeProvider>
           <App />
-        </I18nextProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </I18nProvider>
     </HelmetProvider>
   </StrictMode>,
 );

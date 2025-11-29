@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { track } from '../lib/analytics';
 import dayHero from '../img/SSDAY.jpeg';
 import nightHero from '../img/SSNIGHT.mov';
+import { useI18n } from '../i18n/I18nProvider';
 import { useTheme } from '../theme/ThemeProvider';
 
 const HeroMofu = () => {
   const { isDark } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useI18n();
 
   const handlePrimaryCta = () => {
     track('mofu_hero_cta_click');
@@ -29,24 +30,23 @@ const HeroMofu = () => {
       </div>
       <div className="hero__backdrop" />
       <div className="container hero__content hero__content--center">
-        <span className="hero__trust-pill">{t('hero.trustPill')}</span>
+        <span className="hero__trust-pill">{t('heroTrustPill')}</span>
         <Typography.Title level={1} className="hero__title hero__title--dark">
-          {t('hero.title')}
+          {t('heroTitle')}
         </Typography.Title>
         <Typography.Paragraph className="hero__lead hero__lead--dark">
-          {t('hero.description')}
+          {t('heroLead')}
         </Typography.Paragraph>
         <div className="hero__actions hero__actions--center">
           <Button type="primary" size="large" onClick={handlePrimaryCta} className="solid-button">
-            {t('hero.primaryCta')}
+            {t('heroPrimaryCta')}
           </Button>
           <Button size="large" className="ghost-button" onClick={handlePrimaryCta}>
-            {t('hero.secondaryCta')}
+            {t('heroSecondaryCta')}
           </Button>
         </div>
         <p className="hero__contact">
-          {t('hero.contactPrefix')}{' '}
-          <a href="tel:+18881234567">{t('hero.contactAction')}</a>
+          {t('heroContact')} <a href="tel:+18881234567">{t('heroContactCta')}</a>
         </p>
       </div>
     </section>

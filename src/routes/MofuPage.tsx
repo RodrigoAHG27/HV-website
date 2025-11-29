@@ -3,35 +3,47 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
 import HeroMofu from '../components/HeroMofu';
+import LanguageToggle from '../components/LanguageToggle';
 import LeadFormStepper from '../components/LeadFormStepper';
 import ThemeToggle from '../components/ThemeToggle';
+import { useI18n } from '../i18n/I18nProvider';
 import '../styles/mofu.css';
 
+const highlightContent = [
+  { key: 'fast', titleKey: 'highlightFastTitle', descriptionKey: 'highlightFastDescription' },
+  { key: 'targeted', titleKey: 'highlightTargetedTitle', descriptionKey: 'highlightTargetedDescription' },
+  { key: 'proven', titleKey: 'highlightProvenTitle', descriptionKey: 'highlightProvenDescription' },
+  { key: 'support', titleKey: 'highlightSupportTitle', descriptionKey: 'highlightSupportDescription' },
+  { key: 'expert', titleKey: 'highlightExpertTitle', descriptionKey: 'highlightExpertDescription' },
+  { key: 'innovation', titleKey: 'highlightInnovationTitle', descriptionKey: 'highlightInnovationDescription' },
+] as const;
+
 const MofuPage = () => {
-  const { t } = useTranslation();
-  const highlights = t('highlights', { returnObjects: true }) as Array<{
-    title: string;
-    description: string;
-  }>;
+  const { t, language } = useI18n();
+  const ogLocale = language === 'es' ? 'es_ES' : 'en_US';
 
   return (
     <Layout className="mofu-layout">
       <Helmet>
-        <title>{t('meta.title')}</title>
-        <meta name="description" content={t('meta.description')} />
-        <meta property="og:title" content={t('meta.ogTitle')} />
-        <meta property="og:description" content={t('meta.ogDescription')} />
-        <meta property="og:type" content={t('meta.ogType')} />
-        <meta property="og:url" content={t('meta.ogUrl')} />
-        <meta property="og:image" content={t('meta.ogImage')} />
-        <meta name="twitter:card" content={t('meta.twitterCard')} />
+        <title>{t('metaTitle')}</title>
+        <meta name="description" content={t('metaDescription')} />
+        <meta property="og:title" content={t('metaOgTitle')} />
+        <meta property="og:description" content={t('metaOgDescription')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://hvconstruction.sv" />
+        <meta property="og:image" content="/og-default.png" />
+        <meta property="og:locale" content={ogLocale} />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <Layout.Header className="mofu-header">
         <div className="container mofu-header__inner">
           <Typography.Text className="brand-mark" strong>
             {t('brand')}
           </Typography.Text>
-          <ThemeToggle />
+          <div className="mofu-header__controls">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
         </div>
       </Layout.Header>
 
@@ -41,20 +53,20 @@ const MofuPage = () => {
 
           <section className="section section--centered">
             <div className="container section-header section-header--centered">
-              <p className="eyebrow">{t('sections.whyChooseUs')}</p>
-              <Typography.Title level={2}>{t('sections.highlightsTitle')}</Typography.Title>
+              <p className="eyebrow">{t('sectionEyebrow')}</p>
+              <Typography.Title level={2}>{t('sectionTitle')}</Typography.Title>
             </div>
             <div className="container">
               <Row gutter={[18, 18]}>
-                {highlights.map((item) => (
-                  <Col key={item.title} xs={24} sm={12} lg={8}>
+                {highlightContent.map((item) => (
+                  <Col key={item.key} xs={24} sm={12} lg={8}>
                     <Card className="feature-card" bordered>
                       <div className="feature-card__icon" aria-hidden>
                         <span>★</span>
                       </div>
                       <div className="feature-card__body">
-                        <Typography.Title level={4}>{item.title}</Typography.Title>
-                        <Typography.Paragraph>{item.description}</Typography.Paragraph>
+                        <Typography.Title level={4}>{t(item.titleKey)}</Typography.Title>
+                        <Typography.Paragraph>{t(item.descriptionKey)}</Typography.Paragraph>
                       </div>
                     </Card>
                   </Col>

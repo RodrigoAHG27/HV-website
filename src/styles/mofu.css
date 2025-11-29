@@ -24,6 +24,12 @@
   justify-content: space-between;
 }
 
+.mofu-header__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .brand-mark {
   font-size: 16px;
   letter-spacing: 0.08em;
@@ -38,6 +44,12 @@
 
 .theme-toggle .ant-switch-handle::before {
   background: var(--surface) !important;
+}
+
+.language-toggle .ant-select-selector {
+  background: var(--surface-alt) !important;
+  border-color: var(--border-soft) !important;
+  color: var(--ink) !important;
 }
 
 .container {
