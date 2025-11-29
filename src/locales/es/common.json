@@ -1,0 +1,101 @@
+{
+  "brand": "HV",
+  "hero": {
+    "trustPill": "Respaldados por más de 500 empresas",
+    "title": "Transforma tu negocio con soluciones expertas",
+    "description": "Ayudamos a empresas visionarias a acelerar el crecimiento, optimizar operaciones y lograr resultados medibles. Conversemos sobre cómo podemos ayudarte a alcanzar tus metas.",
+    "primaryCta": "Comienza hoy",
+    "secondaryCta": "Agenda una consulta",
+    "contactPrefix": "¿Prefieres hablar?",
+    "contactAction": "Llámanos al +1 (888) 123-4567"
+  },
+  "meta": {
+    "title": "HV",
+    "description": "Transforma tu negocio con soluciones expertas alineadas a tus objetivos.",
+    "ogTitle": "HV — Soluciones expertas para empresas en crecimiento",
+    "ogDescription": "Acelera el crecimiento con implementación rápida, estrategias focalizadas y resultados comprobados.",
+    "ogType": "website",
+    "ogUrl": "https://hvconstruction.sv",
+    "ogImage": "/og-default.png",
+    "twitterCard": "summary_large_image"
+  },
+  "sections": {
+    "whyChooseUs": "¿Por qué elegirnos?",
+    "highlightsTitle": "Todo lo que necesitas para llevar tu negocio al siguiente nivel"
+  },
+  "highlights": [
+    {
+      "title": "Implementación rápida",
+      "description": "Ponemos todo en marcha con rapidez gracias a un onboarding ágil y asesoría experta."
+    },
+    {
+      "title": "Soluciones enfocadas",
+      "description": "Estrategias a la medida de tus necesidades y los retos de tu industria."
+    },
+    {
+      "title": "Resultados comprobados",
+      "description": "Únete a cientos de clientes que han visto mejoras medibles en desempeño y retorno."
+    },
+    {
+      "title": "Soporte confiable",
+      "description": "Un equipo dedicado disponible para asegurar tu éxito en cada paso."
+    },
+    {
+      "title": "Equipo experto",
+      "description": "Trabaja con profesionales con años de experiencia respaldando tus proyectos."
+    },
+    {
+      "title": "Innovación primero",
+      "description": "Aprovecha herramientas y metodologías de vanguardia para mantenerte adelante de la competencia."
+    }
+  ],
+  "form": {
+    "eyebrow": "¿Listo para empezar?",
+    "title": "Comparte tus datos y nos pondremos en contacto",
+    "description": "Completa el formulario y nuestro equipo te contactará en menos de 24 horas para conversar cómo ayudarte a lograr tus objetivos.",
+    "labels": {
+      "fullName": "Nombre completo *",
+      "email": "Correo electrónico *",
+      "phone": "Número de teléfono",
+      "projectType": "Tipo de proyecto *",
+      "service": "Servicio *",
+      "description": "¿Cómo podemos ayudarte?"
+    },
+    "placeholders": {
+      "fullName": "Juan Pérez",
+      "email": "juan@empresa.com",
+      "phone": "+503 7000 0000",
+      "projectType": "Selecciona el tipo de proyecto",
+      "service": "Selecciona un servicio",
+      "description": "Cuéntanos sobre tu proyecto, objetivos o cualquier duda que tengas..."
+    },
+    "projectTypes": {
+      "residential": "Residencial",
+      "commercial": "Comercial",
+      "industrial": "Industrial"
+    },
+    "services": {
+      "remodel": "Remodelación",
+      "new_build": "Obra nueva",
+      "roofing": "Techos",
+      "electrical": "Eléctrico",
+      "plumbing": "Plomería",
+      "finishes": "Acabados",
+      "other": "Otro"
+    },
+    "optInLabel": "Acepto recibir comunicaciones de HV.",
+    "requirementsNote": "* Campos obligatorios",
+    "buttons": {
+      "preview": "Previsualizar",
+      "submit": "Enviar solicitud"
+    },
+    "messages": {
+      "honeypot": "No pudimos enviar tu solicitud.",
+      "submitSuccess": "Gracias, revisaremos tu solicitud.",
+      "submitError": "No pudimos enviar tu solicitud.",
+      "resultTitle": "Tu solicitud fue enviada",
+      "resultSubtitle": "Nuestro equipo responderá en menos de un día hábil."
+    },
+    "privacy": "Respetamos tu privacidad. Nunca compartiremos tu información con terceros."
+  }
+}

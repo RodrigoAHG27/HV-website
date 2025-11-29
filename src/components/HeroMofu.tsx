@@ -1,4 +1,5 @@
 import { Button, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { track } from '../lib/analytics';
 import dayHero from '../img/SSDAY.jpeg';
@@ -7,6 +8,7 @@ import { useTheme } from '../theme/ThemeProvider';
 
 const HeroMofu = () => {
   const { isDark } = useTheme();
+  const { t } = useTranslation();
 
   const handlePrimaryCta = () => {
     track('mofu_hero_cta_click');
@@ -27,24 +29,24 @@ const HeroMofu = () => {
       </div>
       <div className="hero__backdrop" />
       <div className="container hero__content hero__content--center">
-        <span className="hero__trust-pill">Trusted by 500+ Companies</span>
+        <span className="hero__trust-pill">{t('hero.trustPill')}</span>
         <Typography.Title level={1} className="hero__title hero__title--dark">
-          Transform Your Business with Expert Solutions
+          {t('hero.title')}
         </Typography.Title>
         <Typography.Paragraph className="hero__lead hero__lead--dark">
-          We help forward-thinking companies accelerate growth, streamline operations, and achieve measurable results. Let&apos;s
-          discuss how we can help you reach your goals.
+          {t('hero.description')}
         </Typography.Paragraph>
         <div className="hero__actions hero__actions--center">
           <Button type="primary" size="large" onClick={handlePrimaryCta} className="solid-button">
-            Get Started Today
+            {t('hero.primaryCta')}
           </Button>
           <Button size="large" className="ghost-button" onClick={handlePrimaryCta}>
-            Schedule a Consultation
+            {t('hero.secondaryCta')}
           </Button>
         </div>
         <p className="hero__contact">
-          Prefer to discuss? <a href="tel:+18881234567">Call us at +1 (888) 123-4567</a>
+          {t('hero.contactPrefix')}{' '}
+          <a href="tel:+18881234567">{t('hero.contactAction')}</a>
         </p>
       </div>
     </section>

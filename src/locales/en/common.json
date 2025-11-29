@@ -1,0 +1,101 @@
+{
+  "brand": "HV",
+  "hero": {
+    "trustPill": "Trusted by 500+ Companies",
+    "title": "Transform Your Business with Expert Solutions",
+    "description": "We help forward-thinking companies accelerate growth, streamline operations, and achieve measurable results. Let's discuss how we can help you reach your goals.",
+    "primaryCta": "Get Started Today",
+    "secondaryCta": "Schedule a Consultation",
+    "contactPrefix": "Prefer to discuss?",
+    "contactAction": "Call us at +1 (888) 123-4567"
+  },
+  "meta": {
+    "title": "HV",
+    "description": "Transform your business with expert solutions tailored to your goals.",
+    "ogTitle": "HV — Expert Solutions for Growing Companies",
+    "ogDescription": "Accelerate growth with fast implementation, targeted strategies, and proven results.",
+    "ogType": "website",
+    "ogUrl": "https://hvconstruction.sv",
+    "ogImage": "/og-default.png",
+    "twitterCard": "summary_large_image"
+  },
+  "sections": {
+    "whyChooseUs": "Why Choose Us",
+    "highlightsTitle": "Everything you need to take your business to the next level"
+  },
+  "highlights": [
+    {
+      "title": "Fast Implementation",
+      "description": "Get up and running quickly with our streamlined onboarding process and expert guidance."
+    },
+    {
+      "title": "Targeted Solutions",
+      "description": "Custom strategies designed specifically for your business needs and industry challenges."
+    },
+    {
+      "title": "Proven Results",
+      "description": "Join hundreds of clients who've seen measurable improvements in performance and ROI."
+    },
+    {
+      "title": "Reliable Support",
+      "description": "Dedicated team available to ensure your success every step of the way."
+    },
+    {
+      "title": "Expert Team",
+      "description": "Work with seasoned professionals who bring years of expertise to your projects."
+    },
+    {
+      "title": "Innovation First",
+      "description": "Leverage cutting-edge tools and methodologies to stay ahead of the competition."
+    }
+  ],
+  "form": {
+    "eyebrow": "Ready to Get Started?",
+    "title": "Share your details and we'll reach out",
+    "description": "Complete the form and our team will contact you within 24 hours to discuss how we can help achieve your goals.",
+    "labels": {
+      "fullName": "Full Name *",
+      "email": "Email Address *",
+      "phone": "Phone Number",
+      "projectType": "Project Type *",
+      "service": "Service *",
+      "description": "How can we help?"
+    },
+    "placeholders": {
+      "fullName": "John Doe",
+      "email": "john@company.com",
+      "phone": "+1 (555) 000-0000",
+      "projectType": "Select project type",
+      "service": "Select a service",
+      "description": "Tell us about your project, goals, or any questions you have..."
+    },
+    "projectTypes": {
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "industrial": "Industrial"
+    },
+    "services": {
+      "remodel": "Remodel",
+      "new_build": "New Build",
+      "roofing": "Roofing",
+      "electrical": "Electrical",
+      "plumbing": "Plumbing",
+      "finishes": "Finishes",
+      "other": "Other"
+    },
+    "optInLabel": "I agree to receive communications from HV.",
+    "requirementsNote": "* Required fields",
+    "buttons": {
+      "preview": "Preview",
+      "submit": "Submit Request"
+    },
+    "messages": {
+      "honeypot": "We couldn't submit your request.",
+      "submitSuccess": "Thank you, we'll review your request.",
+      "submitError": "We couldn't submit your request.",
+      "resultTitle": "Your request was submitted",
+      "resultSubtitle": "Our team will respond within one business day."
+    },
+    "privacy": "We respect your privacy. Your information will never be shared with third parties."
+  }
+}
