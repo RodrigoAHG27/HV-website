@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import MofuPage from './routes/MofuPage';
+import FormPage from './routes/FormPage';
 
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/*" element={<MofuPage />} />
+      <Route path="/*" element={<FormPage />} />
     </Routes>
   </BrowserRouter>
 );
