@@ -1,13 +1,22 @@
-import { Button, Card, Checkbox, Form, Input, message, Result, Select, Typography } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  message,
+  Result,
+  Select,
+  Typography,
+} from 'antd';
 import type { FormEvent } from 'react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+import { leadFormSchema, LeadFormValues } from '../../lib/validation';
+import { track } from '../../lib/analytics';
+import { api } from '../../api/http';
 
-import { api } from '../api/http';
-import { track } from '../lib/analytics';
-import { leadFormSchema, type LeadFormValues } from '../lib/validation';
 
 const LeadFormStepper = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -51,7 +60,9 @@ const LeadFormStepper = () => {
       track('mofu_form_submit_error', { reason: 'honeypot' });
       return;
     }
+
     setLoading(true);
+
     try {
       const payload = {
         name: data.name.trim(),
@@ -75,11 +86,14 @@ const LeadFormStepper = () => {
 
       messageApi.success(t('form.messages.submitSuccess'));
       track('mofu_form_submit_success', { projectType: data.projectType });
+
       setSubmitted(true);
       reset();
     } catch (error) {
       messageApi.error(t('form.messages.submitError'));
-      track('mofu_form_submit_error', { message: (error as Error).message });
+      track('mofu_form_submit_error', {
+        message: (error as Error).message,
+      });
     } finally {
       setLoading(false);
     }
@@ -103,17 +117,35 @@ const LeadFormStepper = () => {
   };
 
   return (
-    <Card id="lead-form" className="lead-form" bordered>
+    <div className="rounded-3xl bg-white p-6 shadow-xl sm:p-10">
       {contextHolder}
-      <div className="lead-form__header">
-        <p className="eyebrow">{t('form.eyebrow')}</p>
-        <Typography.Title level={2}>{t('form.title')}</Typography.Title>
-        <Typography.Paragraph>{t('form.description')}</Typography.Paragraph>
+
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <p className="mb-2 text-xs uppercase tracking-widest text-red-700">
+          {t('form.eyebrow')}
+        </p>
+
+        <Typography.Title level={2} className="!mb-2">
+          {t('form.title')}
+        </Typography.Title>
+
+        <Typography.Paragraph className="text-black/70">
+          {t('form.description')}
+        </Typography.Paragraph>
       </div>
-      <Form layout="vertical" onSubmitCapture={handleFormSubmit} className="lead-form__card">
+
+      <Form
+        layout="vertical"
+        onSubmitCapture={handleFormSubmit}
+        className="space-y-6"
+      >
+        {/* Honeypot + source */}
         <input type="text" hidden {...register('company')} />
         <input type="hidden" {...register('source')} />
-        <div className="lead-form__grid">
+
+        {/* Main grid */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Controller
             control={control}
             name="name"
@@ -123,10 +155,16 @@ const LeadFormStepper = () => {
                 validateStatus={errors.name ? 'error' : ''}
                 help={errors.name?.message}
               >
-                <Input {...field} onFocus={handleFirstFocus} placeholder={t('form.placeholders.fullName')} />
+                <Input
+                  {...field}
+                  className="h-12"
+                  onFocus={handleFirstFocus}
+                  placeholder={t('form.placeholders.fullName')}
+                />
               </Form.Item>
             )}
           />
+
           <Controller
             control={control}
             name="email"
@@ -136,10 +174,17 @@ const LeadFormStepper = () => {
                 validateStatus={errors.email ? 'error' : ''}
                 help={errors.email?.message}
               >
-                <Input {...field} type="email" onFocus={handleFirstFocus} placeholder={t('form.placeholders.email')} />
+                <Input
+                  {...field}
+                  type="email"
+                  className="h-12"
+                  onFocus={handleFirstFocus}
+                  placeholder={t('form.placeholders.email')}
+                />
               </Form.Item>
             )}
           />
+
           <Controller
             control={control}
             name="phone"
@@ -149,10 +194,16 @@ const LeadFormStepper = () => {
                 validateStatus={errors.phone ? 'error' : ''}
                 help={errors.phone?.message}
               >
-                <Input {...field} onFocus={handleFirstFocus} placeholder={t('form.placeholders.phone')} />
+                <Input
+                  {...field}
+                  className="h-12"
+                  onFocus={handleFirstFocus}
+                  placeholder={t('form.placeholders.phone')}
+                />
               </Form.Item>
             )}
           />
+
           <Controller
             control={control}
             name="projectType"
@@ -164,17 +215,19 @@ const LeadFormStepper = () => {
               >
                 <Select
                   {...field}
+                  className="h-12"
                   onFocus={handleFirstFocus}
+                  placeholder={t('form.placeholders.projectType')}
                   options={[
                     { value: 'residential', label: t('form.projectTypes.residential') },
                     { value: 'commercial', label: t('form.projectTypes.commercial') },
                     { value: 'industrial', label: t('form.projectTypes.industrial') },
                   ]}
-                  placeholder={t('form.placeholders.projectType')}
                 />
               </Form.Item>
             )}
           />
+
           <Controller
             control={control}
             name="service"
@@ -183,10 +236,13 @@ const LeadFormStepper = () => {
                 label={t('form.labels.service')}
                 validateStatus={errors.service ? 'error' : ''}
                 help={errors.service?.message}
+                className="sm:col-span-2"
               >
                 <Select
                   {...field}
+                  className="h-12"
                   onFocus={handleFirstFocus}
+                  placeholder={t('form.placeholders.service')}
                   options={[
                     { value: 'remodel', label: t('form.services.remodel') },
                     { value: 'new_build', label: t('form.services.new_build') },
@@ -196,12 +252,13 @@ const LeadFormStepper = () => {
                     { value: 'finishes', label: t('form.services.finishes') },
                     { value: 'other', label: t('form.services.other') },
                   ]}
-                  placeholder={t('form.placeholders.service')}
                 />
               </Form.Item>
             )}
           />
         </div>
+
+        {/* Description */}
         <Controller
           control={control}
           name="description"
@@ -220,6 +277,8 @@ const LeadFormStepper = () => {
             </Form.Item>
           )}
         />
+
+        {/* Opt-in */}
         <Controller
           control={control}
           name="optIn"
@@ -227,7 +286,7 @@ const LeadFormStepper = () => {
             <Form.Item valuePropName="checked">
               <Checkbox
                 checked={field.value}
-                onChange={(event) => field.onChange(event.target.checked)}
+                onChange={(e) => field.onChange(e.target.checked)}
                 onBlur={field.onBlur}
                 onFocus={handleFirstFocus}
                 ref={field.ref}
@@ -237,20 +296,44 @@ const LeadFormStepper = () => {
             </Form.Item>
           )}
         />
-        <div className="lead-form__footer">
-          <div className="lead-form__requirements">{t('form.requirementsNote')}</div>
-          <div className="lead-form__actions">
-            <Button onClick={() => reset()} className="ghost-button">
+
+        {/* Footer */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-black/60">
+            {t('form.requirementsNote')}
+          </p>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              onClick={() => reset()}
+              className="h-12 rounded-full px-8"
+            >
               {t('form.buttons.preview')}
             </Button>
-            <Button type="primary" htmlType="submit" loading={loading} disabled={!isValid} className="solid-button">
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              disabled={!isValid}
+              className="
+                h-12
+                rounded-full
+                px-8
+                !bg-red-800
+                hover:!bg-red-700
+              "
+            >
               {t('form.buttons.submit')}
             </Button>
           </div>
         </div>
       </Form>
-      <p className="lead-form__privacy">{t('form.privacy')}</p>
-    </Card>
+
+      <p className="mt-6 text-center text-xs text-black/50">
+        {t('form.privacy')}
+      </p>
+    </div>
   );
 };
 
