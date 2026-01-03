@@ -1,11 +1,9 @@
 import {
   Button,
-  Checkbox,
   Form,
   Input,
   message,
   Result,
-  Select,
   Typography,
 } from 'antd';
 import type { FormEvent } from 'react';
@@ -38,12 +36,8 @@ const LeadFormStepper = () => {
       name: '',
       email: '',
       phone: '',
-      projectType: 'commercial',
-      service: 'other',
-      description: '',
-      optIn: false,
+      inquiry: '',
       company: '',
-      source: 'mofu-page',
     },
   });
 
@@ -66,26 +60,19 @@ const LeadFormStepper = () => {
     try {
       const payload = {
         name: data.name.trim(),
-        email: data.email,
-        phone: data.phone,
-        projectType: data.projectType,
-        service: data.service,
-        description: data.description,
-        optIn: data.optIn,
-        company: data.company,
+        email: data.email.trim(),
+        phone: data.phone?.trim() ?? '',
+        inquiry: data.inquiry.trim(),
       };
 
-      const response = await api.post('/api/leads', {
-        ...payload,
-        source: data.source,
-      });
+      const response = await api.post('/api/leads', payload);
 
       if (response.status < 200 || response.status >= 300) {
         throw new Error(`status ${response.status}`);
       }
 
       messageApi.success(t('form.messages.submitSuccess'));
-      track('mofu_form_submit_success', { projectType: data.projectType });
+      track('mofu_form_submit_success');
 
       setSubmitted(true);
       reset();
@@ -140,9 +127,8 @@ const LeadFormStepper = () => {
         onSubmitCapture={handleFormSubmit}
         className="space-y-6"
       >
-        {/* Honeypot + source */}
+        {/* Honeypot */}
         <input type="text" hidden {...register('company')} />
-        <input type="hidden" {...register('source')} />
 
         {/* Main grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -193,6 +179,7 @@ const LeadFormStepper = () => {
                 label={t('form.labels.phone')}
                 validateStatus={errors.phone ? 'error' : ''}
                 help={errors.phone?.message}
+                className="sm:col-span-2"
               >
                 <Input
                   {...field}
@@ -203,96 +190,24 @@ const LeadFormStepper = () => {
               </Form.Item>
             )}
           />
-
-          <Controller
-            control={control}
-            name="projectType"
-            render={({ field }) => (
-              <Form.Item
-                label={t('form.labels.projectType')}
-                validateStatus={errors.projectType ? 'error' : ''}
-                help={errors.projectType?.message}
-              >
-                <Select
-                  {...field}
-                  className="h-12"
-                  onFocus={handleFirstFocus}
-                  placeholder={t('form.placeholders.projectType')}
-                  options={[
-                    { value: 'residential', label: t('form.projectTypes.residential') },
-                    { value: 'commercial', label: t('form.projectTypes.commercial') },
-                    { value: 'industrial', label: t('form.projectTypes.industrial') },
-                  ]}
-                />
-              </Form.Item>
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="service"
-            render={({ field }) => (
-              <Form.Item
-                label={t('form.labels.service')}
-                validateStatus={errors.service ? 'error' : ''}
-                help={errors.service?.message}
-                className="sm:col-span-2"
-              >
-                <Select
-                  {...field}
-                  className="h-12"
-                  onFocus={handleFirstFocus}
-                  placeholder={t('form.placeholders.service')}
-                  options={[
-                    { value: 'remodel', label: t('form.services.remodel') },
-                    { value: 'new_build', label: t('form.services.new_build') },
-                    { value: 'roofing', label: t('form.services.roofing') },
-                    { value: 'electrical', label: t('form.services.electrical') },
-                    { value: 'plumbing', label: t('form.services.plumbing') },
-                    { value: 'finishes', label: t('form.services.finishes') },
-                    { value: 'other', label: t('form.services.other') },
-                  ]}
-                />
-              </Form.Item>
-            )}
-          />
         </div>
 
-        {/* Description */}
+        {/* Inquiry */}
         <Controller
           control={control}
-          name="description"
+          name="inquiry"
           render={({ field }) => (
             <Form.Item
-              label={t('form.labels.description')}
-              validateStatus={errors.description ? 'error' : ''}
-              help={errors.description?.message}
+              label={t('form.labels.inquiry')}
+              validateStatus={errors.inquiry ? 'error' : ''}
+              help={errors.inquiry?.message}
             >
               <Input.TextArea
                 {...field}
                 onFocus={handleFirstFocus}
-                placeholder={t('form.placeholders.description')}
+                placeholder={t('form.placeholders.inquiry')}
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
-            </Form.Item>
-          )}
-        />
-
-        {/* Opt-in */}
-        <Controller
-          control={control}
-          name="optIn"
-          render={({ field }) => (
-            <Form.Item valuePropName="checked">
-              <Checkbox
-                checked={field.value}
-                onChange={(e) => field.onChange(e.target.checked)}
-                onBlur={field.onBlur}
-                onFocus={handleFirstFocus}
-                ref={field.ref}
-              >
-                {t('form.optInLabel')}
-              </Checkbox>
             </Form.Item>
           )}
         />
