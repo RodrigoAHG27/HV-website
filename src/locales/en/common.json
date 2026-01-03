@@ -52,41 +52,22 @@
   "form": {
     "eyebrow": "Ready to Get Started?",
     "title": "Share your details and we'll reach out",
-    "description": "Complete the form and our team will contact you within 24 hours to discuss how we can help achieve your goals.",
+    "description": "Send us a brief inquiry and our team will respond within one business day.",
     "labels": {
       "fullName": "Full Name *",
       "email": "Email Address *",
       "phone": "Phone Number",
-      "projectType": "Project Type *",
-      "service": "Service *",
-      "description": "How can we help?"
+      "inquiry": "How can we help? *"
     },
     "placeholders": {
       "fullName": "John Doe",
       "email": "john@company.com",
       "phone": "+1 (555) 000-0000",
-      "projectType": "Select project type",
-      "service": "Select a service",
-      "description": "Tell us about your project, goals, or any questions you have..."
+      "inquiry": "Tell us about your project, goals, or any questions you have..."
     },
-    "projectTypes": {
-      "residential": "Residential",
-      "commercial": "Commercial",
-      "industrial": "Industrial"
-    },
-    "services": {
-      "remodel": "Remodel",
-      "new_build": "New Build",
-      "roofing": "Roofing",
-      "electrical": "Electrical",
-      "plumbing": "Plumbing",
-      "finishes": "Finishes",
-      "other": "Other"
-    },
-    "optInLabel": "I agree to receive communications from HV.",
-    "requirementsNote": "* Required fields",
+    "requirementsNote": "Fields marked with * are required.",
     "buttons": {
-      "preview": "Preview",
+      "preview": "Clear form",
       "submit": "Submit Request"
     },
     "messages": {

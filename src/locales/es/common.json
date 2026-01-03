@@ -52,41 +52,22 @@
   "form": {
     "eyebrow": "¿Listo para empezar?",
     "title": "Comparte tus datos y nos pondremos en contacto",
-    "description": "Completa el formulario y nuestro equipo te contactará en menos de 24 horas para conversar cómo ayudarte a lograr tus objetivos.",
+    "description": "Envíanos una consulta breve y nuestro equipo responderá en menos de un día hábil.",
     "labels": {
       "fullName": "Nombre completo *",
       "email": "Correo electrónico *",
       "phone": "Número de teléfono",
-      "projectType": "Tipo de proyecto *",
-      "service": "Servicio *",
-      "description": "¿Cómo podemos ayudarte?"
+      "inquiry": "¿Cómo podemos ayudarte? *"
     },
     "placeholders": {
       "fullName": "Juan Pérez",
       "email": "juan@empresa.com",
       "phone": "+503 7000 0000",
-      "projectType": "Selecciona el tipo de proyecto",
-      "service": "Selecciona un servicio",
-      "description": "Cuéntanos sobre tu proyecto, objetivos o cualquier duda que tengas..."
+      "inquiry": "Cuéntanos sobre tu proyecto, objetivos o cualquier duda que tengas..."
     },
-    "projectTypes": {
-      "residential": "Residencial",
-      "commercial": "Comercial",
-      "industrial": "Industrial"
-    },
-    "services": {
-      "remodel": "Remodelación",
-      "new_build": "Obra nueva",
-      "roofing": "Techos",
-      "electrical": "Eléctrico",
-      "plumbing": "Plomería",
-      "finishes": "Acabados",
-      "other": "Otro"
-    },
-    "optInLabel": "Acepto recibir comunicaciones de HV.",
-    "requirementsNote": "* Campos obligatorios",
+    "requirementsNote": "Los campos marcados con * son obligatorios.",
     "buttons": {
-      "preview": "Previsualizar",
+      "preview": "Limpiar formulario",
       "submit": "Enviar solicitud"
     },
     "messages": {
