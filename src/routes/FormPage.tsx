@@ -1,6 +1,6 @@
 import { Typography } from 'antd';
-import LeadFormStepper from '../components/LeadFormStepper';
 import { useTranslation } from 'react-i18next';
+import LeadFormStepper from '../components/subcomponents/LeadFormStepper';
 
 const FormPage = () => {
   const { t } = useTranslation();
