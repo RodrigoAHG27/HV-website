@@ -104,12 +104,18 @@ const LeadFormStepper = () => {
   };
 
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-xl sm:p-10">
+    <div
+      className="
+        rounded-3xl bg-white p-6 shadow-xl sm:p-10
+        transform-gpu transition-transform duration-300 ease-out
+        translate-y-2
+      "
+    >
       {contextHolder}
 
       {/* Header */}
       <div className="mb-8 text-center">
-        <p className="mb-2 text-xs uppercase tracking-widest text-red-700">
+        <p className="mb-2 text-xs uppercase tracking-widest text-charcoal-brown-600">
           {t('form.eyebrow')}
         </p>
 
@@ -235,8 +241,8 @@ const LeadFormStepper = () => {
                 h-12
                 rounded-full
                 px-8
-                !bg-red-800
-                hover:!bg-red-700
+                !bg-charcoal-brown-600
+                hover:!bg-charcoal-brown-700
               "
             >
               {t('form.buttons.submit')}
@@ -244,10 +250,6 @@ const LeadFormStepper = () => {
           </div>
         </div>
       </Form>
-
-      <p className="mt-6 text-center text-xs text-black/50">
-        {t('form.privacy')}
-      </p>
     </div>
   );
 };

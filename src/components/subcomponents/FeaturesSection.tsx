@@ -33,11 +33,12 @@ export default function FeaturesSection() {
             md:grid-cols-3
           "
         >
-          {FEATURES.map((feature) => (
+          {FEATURES.map((feature, index) => (
             <FeatureCard
               key={feature.title}
               title={feature.title}
               description={feature.description}
+              index={index}
             />
           ))}
         </div>
@@ -46,9 +47,9 @@ export default function FeaturesSection() {
   );
 }
 
-type FeatureCardProps = Feature;
+type FeatureCardProps = Feature & { index: number };
 
-function FeatureCard({ title, description }: FeatureCardProps) {
+function FeatureCard({ title, description, index }: FeatureCardProps) {
   return (
     <div
       className="
@@ -62,7 +63,9 @@ function FeatureCard({ title, description }: FeatureCardProps) {
         transition
         duration-300
         hover:-translate-y-1
+        animate-slide-in-left
       "
+      style={{ animationDelay: `${index * 120}ms` }}
     >
       {/* Animated border */}
       <span
@@ -75,7 +78,7 @@ function FeatureCard({ title, description }: FeatureCardProps) {
           border-transparent
           transition-all
           duration-300
-          group-hover:border-red-700
+          group-hover:border-charcoal-brown-600
         "
       />
 

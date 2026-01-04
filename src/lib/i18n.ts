@@ -9,6 +9,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: 'es',
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
@@ -18,7 +19,7 @@ i18n
       en: { common: enCommon },
       es: { common: esCommon }
     },
-    fallbackLng: 'en',
+    fallbackLng: 'es',
     interpolation: {
       escapeValue: false
     },
