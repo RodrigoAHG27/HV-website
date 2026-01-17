@@ -226,13 +226,6 @@ const LeadFormStepper = () => {
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button
-              onClick={() => reset()}
-              className="h-12 rounded-full px-8"
-            >
-              {t('form.buttons.preview')}
-            </Button>
-
-            <Button
               type="primary"
               htmlType="submit"
               loading={loading}
@@ -243,6 +236,7 @@ const LeadFormStepper = () => {
                 px-8
                 !bg-charcoal-brown-600
                 hover:!bg-charcoal-brown-700
+                !text-white
               "
             >
               {t('form.buttons.submit')}

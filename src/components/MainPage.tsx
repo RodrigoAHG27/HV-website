@@ -14,7 +14,7 @@ const MainPage = () => {
 
       {/* Floating WhatsApp button */}
       <a
-        href="https://wa.me/<E164_NUMBER>"
+        href="https://wa.me/message/XKOOQQLOZIM6P1"
         aria-label="WhatsApp"
         target="_blank"
         rel="noreferrer"

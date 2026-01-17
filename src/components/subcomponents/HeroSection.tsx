@@ -70,7 +70,7 @@ export default function HeroSection() {
               hover:!bg-charcoal-brown-700
             "
           >
-            the “start now” thingy
+            Comenzar
           </Button>
         </a>
       </div>
